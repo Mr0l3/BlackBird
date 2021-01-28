@@ -33,17 +33,25 @@ class Osint:
                     
                     key = key.replace('_', ' ')
 
+                    # If value is a dict or a list, print the key that points to
+                    # that dict or list, then call get_values to get the values
+                    # inside the dict or list
                     if type(value) is dict or type(value) is list:
                         if len(value) > 0 and key != 'billing':
                             print(f'\n\033[31m{key.capitalize()}:\033[0m')
                             get_values(value)
+                    
+                    # If we have a string as a value, print it
                     elif type(value) is str:
                             if key != 'status':
+
+                                # Break line
                                 if key == 'situacao':
                                     print('')
                                 
                                 if value.strip():
                                     print(f'\033[31m{key.capitalize()}:\033[0m {value}')
+            # If the value is a list, we only get the values from it (we don't have keys)
             elif type(data) is list:
                 for value in data:
                     if type(value) is dict or type(value) is list:
@@ -53,13 +61,11 @@ class Osint:
 
         if r.status_code == 200:
             cnpj_info = r.json()
-
             status = cnpj_info['status']
 
             if status == 'OK':
                 print('')
                 get_values(cnpj_info)
-                #print(cnpj_info)
                     
             else:
                 message = cnpj_info['message']
