@@ -15,7 +15,7 @@ if __name__ == '__main__':
                 c.start(module)
             else:
                 c.start()   
-            c.set_user_option()
+            c.set_user_option(module)
 
             option = c.get_user_option()
             if option == 0:
@@ -36,6 +36,9 @@ if __name__ == '__main__':
                 # TCP Conn Scan
                 if option == 1:
                     print('Starting TCP Scan...')
+                # Back to console
+                elif option == 2:
+                    module = 'console'
             
             # OSINT module
             elif module == 'osint':
@@ -75,6 +78,9 @@ if __name__ == '__main__':
                         print("\033[31m[ERROR]\033[0m Invalid CNPJ")
                         
                     input('Press ENTER to continue')
+                elif option == 3:
+                    # Back to console
+                    module = 'console'
     
     except KeyboardInterrupt:
         print('\033[31mGood Bye!\033[0m')

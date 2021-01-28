@@ -5,8 +5,8 @@ class Console():
     def __init__(self) -> None:
         self.__user_option: int
         self.__options = {'console': ['Exit', 'Scanning', 'OSINT'],
-                        'scanning': ['Exit', 'TCP Connection Scan'],
-                        'osint': ['Exit', 'CEP Info', 'CNPJ Info']}
+                        'scanning': ['Exit', 'TCP Connection Scan', 'Go Back'],
+                        'osint': ['Exit', 'CEP Info', 'CNPJ Info', 'Go Back']}
         self.banner: Banner = Banner()
 
     def start(self, module = 'Console') -> None:
@@ -31,7 +31,7 @@ class Console():
             print(f'\033[37;1m{index})\033[0m \033[31m{option}\033[0m')
         print('')
 
-    def set_user_option(self) -> None:
+    def set_user_option(self, module = 'console') -> None:
         while True:
             try:
                 # User should enter with a integer, otherwise raise ValueError
@@ -41,7 +41,7 @@ class Console():
                 continue
             else:
                 # Checks if input is in the correct range of options
-                if 0 <= opt < len(self.__options):
+                if 0 <= opt < len(self.__options[module]):
                     self.__user_option = opt
                     break
                 else:
